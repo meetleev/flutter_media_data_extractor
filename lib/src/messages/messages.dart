@@ -18,8 +18,10 @@ PlatformException _createConnectionError(String channelName) {
 enum MediaDataSourceType {
   /// The video was included in the app's asset files.
   asset,
+
   /// The video was downloaded from the internet.
   network,
+
   /// The video was loaded off of the local filesystem.
   file,
 }
@@ -214,13 +216,13 @@ class _MediaDataExtractorApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128: 
+      case 128:
         return MediaDataSource.decode(readValue(buffer)!);
-      case 129: 
+      case 129:
         return VideoData.decode(readValue(buffer)!);
-      case 130: 
+      case 130:
         return VideoMetaData.decode(readValue(buffer)!);
-      case 131: 
+      case 131:
         return VideoTrackData.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -236,11 +238,14 @@ class MediaDataExtractorApi {
       : __pigeon_binaryMessenger = binaryMessenger;
   final BinaryMessenger? __pigeon_binaryMessenger;
 
-  static const MessageCodec<Object?> pigeonChannelCodec = _MediaDataExtractorApiCodec();
+  static const MessageCodec<Object?> pigeonChannelCodec =
+      _MediaDataExtractorApiCodec();
 
   Future<VideoData> getVideoData(MediaDataSource dataSource) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.media_data_extractor.MediaDataExtractorApi.getVideoData';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    const String __pigeon_channelName =
+        'dev.flutter.pigeon.media_data_extractor.MediaDataExtractorApi.getVideoData';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
