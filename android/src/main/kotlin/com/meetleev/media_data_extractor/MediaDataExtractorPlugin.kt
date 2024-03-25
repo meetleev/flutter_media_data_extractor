@@ -69,11 +69,36 @@ class MediaDataExtractorPlugin : FlutterPlugin, MediaDataExtractorApi {
                     val format = retriever.getTrackFormat(i)
                     val mime = format.getString(MediaFormat.KEY_MIME)
                     if (mime?.startsWith("video/") == true) {
-                        val frameRate = format.getInteger(MediaFormat.KEY_FRAME_RATE)
-                        val duration = format.getLong(MediaFormat.KEY_DURATION)
-                        val bitRate = format.getInteger(MediaFormat.KEY_BIT_RATE)
-                        val width = format.getInteger(MediaFormat.KEY_WIDTH)
-                        val height = format.getInteger(MediaFormat.KEY_HEIGHT)
+                        val frameRate
+                        try {
+                            frameRate = format.getInteger(MediaFormat.KEY_FRAME_RATE)
+                        } catch (e) {
+                            frameRate = 0
+                        }
+                        val duration
+                        try {
+                            duration = format.getLong(MediaFormat.KEY_DURATION)
+                        } catch (e) {
+                            duration = 0
+                        }
+                        val bitRate
+                        try {
+                            bitRate = format.getInteger(MediaFormat.KEY_BIT_RATE)
+                        } catch (e) {
+                            bitRate = 0
+                        }
+                        val width
+                        try {
+                            width = format.getInteger(MediaFormat.KEY_WIDTH)
+                        } catch (e) {
+                            width = 0
+                        }
+                        val height
+                        try {
+                            height = format.getInteger(MediaFormat.KEY_HEIGHT)
+                        } catch (e) {
+                            height = 0
+                        }
                         val meta = VideoTrackData(
                                 frameRate = frameRate.toDouble(), duration = duration / 1000,
                                 bitRate = bitRate.toDouble(), width = width.toDouble(), height = height.toDouble(),
@@ -89,8 +114,7 @@ class MediaDataExtractorPlugin : FlutterPlugin, MediaDataExtractorApi {
                 val date = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DATE)
 //                val location = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_LOCATION)
                 val author = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_AUTHOR)
-                val meta = VideoMetaData(artist = artist, title = title,
-                        album = album, genre = genre, author = author, date = date)
+                val meta = VideoMetaData(artist = artist, title = title, album = album, genre = genre, author = author, date = date)
                 callback(Result.success(VideoData(meta = meta, tracks = tracks)))
             } catch (e: IOException) {
                 e.printStackTrace()
