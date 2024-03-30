@@ -1,6 +1,6 @@
 name: media_data_extractor
 description: "Extracts video file metadata. Retrieve video details efficiently."
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/meetleev
 repository: https://github.com/meetleev/flutter_media_data_extractor
 topics:

@@ -15,8 +15,8 @@ class MediaDataExtractorPlugin : FlutterPlugin, MediaDataExtractorApi {
     private var pluginBinding: FlutterPlugin.FlutterPluginBinding? = null
 
     companion object {
-        private const val poolSize = 2
-        private var threadPools: ThreadPoolExecutor = ThreadPoolExecutor(poolSize, Int.MAX_VALUE, 1, TimeUnit.MINUTES, LinkedBlockingQueue())
+        private const val POOL_SIZE = 2
+        private var threadPools: ThreadPoolExecutor = ThreadPoolExecutor(POOL_SIZE, Int.MAX_VALUE, 1, TimeUnit.MINUTES, LinkedBlockingQueue())
 
         fun runOnBackground(runnable: () -> Unit) {
             threadPools.execute(runnable)
@@ -69,35 +69,30 @@ class MediaDataExtractorPlugin : FlutterPlugin, MediaDataExtractorApi {
                     val format = retriever.getTrackFormat(i)
                     val mime = format.getString(MediaFormat.KEY_MIME)
                     if (mime?.startsWith("video/") == true) {
-                        val frameRate
-                        try {
-                            frameRate = format.getInteger(MediaFormat.KEY_FRAME_RATE)
-                        } catch (e) {
-                            frameRate = 0
+                        val frameRate: Int = try {
+                            format.getInteger(MediaFormat.KEY_FRAME_RATE)
+                        } catch (_: Exception) {
+                            0
                         }
-                        val duration
-                        try {
-                            duration = format.getLong(MediaFormat.KEY_DURATION)
-                        } catch (e) {
-                            duration = 0
+                        val duration: Long = try {
+                            format.getLong(MediaFormat.KEY_DURATION)
+                        } catch (_: Exception) {
+                            0
                         }
-                        val bitRate
-                        try {
-                            bitRate = format.getInteger(MediaFormat.KEY_BIT_RATE)
-                        } catch (e) {
-                            bitRate = 0
+                        val bitRate = try {
+                            format.getInteger(MediaFormat.KEY_BIT_RATE)
+                        } catch (_: Exception) {
+                            0
                         }
-                        val width
-                        try {
-                            width = format.getInteger(MediaFormat.KEY_WIDTH)
-                        } catch (e) {
-                            width = 0
+                        val width = try {
+                            format.getInteger(MediaFormat.KEY_WIDTH)
+                        } catch (_: Exception) {
+                            0
                         }
-                        val height
-                        try {
-                            height = format.getInteger(MediaFormat.KEY_HEIGHT)
-                        } catch (e) {
-                            height = 0
+                        val height = try {
+                            format.getInteger(MediaFormat.KEY_HEIGHT)
+                        } catch (_: Exception) {
+                            0
                         }
                         val meta = VideoTrackData(
                                 frameRate = frameRate.toDouble(), duration = duration / 1000,
