@@ -5,7 +5,7 @@ homepage: https://github.com/meetleev
 repository: https://github.com/meetleev/flutter_media_data_extractor
 topics:
   - meta
-  - video_meta
+  - videometa
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
