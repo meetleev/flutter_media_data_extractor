@@ -1,15 +1,16 @@
 name: media_data_extractor
 description: "Extracts video file metadata. Retrieve video details efficiently."
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/meetleev
 repository: https://github.com/meetleev/flutter_media_data_extractor
 topics:
   - meta
   - videometa
+  - video
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.10.0"
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
 
 dependencies:
   flutter:
@@ -17,10 +18,8 @@ dependencies:
   plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
-#  flutter_test:
-#    sdk: flutter
-  flutter_lints: ^4.0.0
-  pigeon: ^20.0.1
+  flutter_lints: ^5.0.0
+  pigeon: 22.7.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

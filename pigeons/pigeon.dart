@@ -80,12 +80,6 @@ class VideoData {
   VideoData({required this.meta, required this.tracks});
 }
 
-@HostApi()
-abstract class MediaDataExtractorApi {
-  @async
-  VideoData getVideoData(MediaDataSource dataSource);
-}
-
 @ConfigurePigeon(PigeonOptions(
     dartOut: 'lib/src/messages/messages.dart',
     dartOptions: DartOptions(),
@@ -94,4 +88,10 @@ abstract class MediaDataExtractorApi {
     kotlinOut:
         'android/src/main/kotlin/com/meetleev/media_data_extractor/Messages.g.kt',
     kotlinOptions: KotlinOptions(package: 'com.meetleev.media_data_extractor')))
-class _ {}
+
+@HostApi()
+abstract class MediaDataExtractorApi {
+  @async
+  VideoData getVideoData(MediaDataSource dataSource);
+}
+
