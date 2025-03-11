@@ -18,8 +18,10 @@ PlatformException _createConnectionError(String channelName) {
 enum MediaDataSourceType {
   /// The video was included in the app's asset files.
   asset,
+
   /// The video was downloaded from the internet.
   network,
+
   /// The video was loaded off of the local filesystem.
   file,
 }
@@ -188,7 +190,6 @@ class VideoData {
   }
 }
 
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -196,19 +197,19 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    }    else if (value is MediaDataSourceType) {
+    } else if (value is MediaDataSourceType) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    }    else if (value is MediaDataSource) {
+    } else if (value is MediaDataSource) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    }    else if (value is VideoTrackData) {
+    } else if (value is VideoTrackData) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    }    else if (value is VideoMetaData) {
+    } else if (value is VideoMetaData) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    }    else if (value is VideoData) {
+    } else if (value is VideoData) {
       buffer.putUint8(133);
       writeValue(buffer, value.encode());
     } else {
@@ -219,16 +220,16 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129: 
+      case 129:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : MediaDataSourceType.values[value];
-      case 130: 
+      case 130:
         return MediaDataSource.decode(readValue(buffer)!);
-      case 131: 
+      case 131:
         return VideoTrackData.decode(readValue(buffer)!);
-      case 132: 
+      case 132:
         return VideoMetaData.decode(readValue(buffer)!);
-      case 133: 
+      case 133:
         return VideoData.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -240,9 +241,11 @@ class MediaDataExtractorApi {
   /// Constructor for [MediaDataExtractorApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  MediaDataExtractorApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  MediaDataExtractorApi(
+      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        pigeonVar_messageChannelSuffix =
+            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -250,8 +253,10 @@ class MediaDataExtractorApi {
   final String pigeonVar_messageChannelSuffix;
 
   Future<VideoData> getVideoData(MediaDataSource dataSource) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.media_data_extractor.MediaDataExtractorApi.getVideoData$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.media_data_extractor.MediaDataExtractorApi.getVideoData$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,

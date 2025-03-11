@@ -88,10 +88,8 @@ class VideoData {
     kotlinOut:
         'android/src/main/kotlin/com/meetleev/media_data_extractor/Messages.g.kt',
     kotlinOptions: KotlinOptions(package: 'com.meetleev.media_data_extractor')))
-
 @HostApi()
 abstract class MediaDataExtractorApi {
   @async
   VideoData getVideoData(MediaDataSource dataSource);
 }
-
