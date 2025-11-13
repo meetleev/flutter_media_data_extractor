@@ -1,4 +1,4 @@
-## 0.0.7
+## 0.0.8
 * Updates minimum supported SDK version to Flutter 3.27/Dart 3.6.
 * Supported MacOS platform
   
