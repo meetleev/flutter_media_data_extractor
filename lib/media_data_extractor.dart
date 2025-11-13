@@ -14,7 +14,8 @@ extension VideoTrackDataEx on VideoTrackData {
 }
 
 extension VideoMetaDataEx on VideoMetaData {
-  String get description => '{title: $title, artist: $artist, album: $album, '
+  String get description =>
+      '{title: $title, artist: $artist, album: $album, '
       'genre: $genre language: $language, author: $author, '
       'date: $date}';
 }
