@@ -1,6 +1,6 @@
 ## 0.0.7
 * Updates minimum supported SDK version to Flutter 3.27/Dart 3.6.
-* Supported macos platform
+* Supported MacOS platform
   
 ## 0.0.6
 * Updates minimum supported SDK version to Flutter 3.19/Dart 3.3.
